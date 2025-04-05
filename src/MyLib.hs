@@ -25,6 +25,12 @@ tuplizeIso n = iso (tuplize n) (map head)
 tuplize_overlapless :: Integral integral => integral -> [a] -> [[a]]
 tuplize_overlapless n = takeWhile ((== n) . fromIntegral . length) . map (take $ fromIntegral n) . iterate (drop $ fromIntegral n)
 
+hasRepeatedElements :: Eq a => [a] -> Bool
+hasRepeatedElements [] = False
+hasRepeatedElements (x:xs)
+    | x `elem` xs = True
+    | otherwise   = hasRepeatedElements xs
+
 
 -- modUsingEnumeration :: Int -> Lens [a] [(Int, a)] a (Int, a)
 -- modUsingEnumeration n = lens 
